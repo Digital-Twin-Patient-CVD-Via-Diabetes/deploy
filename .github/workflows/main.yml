@@ -1,4 +1,4 @@
-name: Deploy Advanced Risk Engine
+name: ADVANCED_RISK_ENGINE
 
 on:
   push:
@@ -22,8 +22,8 @@ jobs:
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
-          username: ${{ secrets.DOCKER_HUB_USERNAME }}
-          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}  # Your Docker Hub username
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}    # Your Docker Hub personal access token
 
       # Step 4: Build and push Docker image
       - name: Build and push Docker image
@@ -37,7 +37,9 @@ jobs:
       - name: Deploy to Kubernetes
         run: |
           echo "Deploying to Kubernetes..."
+          echo "$KUBE_CONFIG" | base64 --decode > kubeconfig.yaml
+          export KUBECONFIG=kubeconfig.yaml
           kubectl apply -f deployment.yaml
           kubectl apply -f service.yaml
         env:
-          KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+          KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}  # Base64-encoded Kubernetes config
