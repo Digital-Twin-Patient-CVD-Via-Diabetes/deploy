@@ -1,4 +1,4 @@
-name: ADVANCED_RISK_ENGINE
+name:Deploy Advanced Risk Engine
 
 on:
   push:
