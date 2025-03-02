@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: advanced-risk-engine
-        image: maramohamed22/advanced-risk-engine:latest  # Replace with your Docker Hub image
+        image: your-dockerhub-username/advanced-risk-engine:latest  # Replace with your Docker Hub image
         ports:
         - containerPort: 5000
