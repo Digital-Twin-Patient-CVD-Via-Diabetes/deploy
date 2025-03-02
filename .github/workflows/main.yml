@@ -31,24 +31,13 @@ jobs:
         with:
           context: .
           push: true
-          tags: maramohamed22/advanced-risk-engine:latest  # ✅ Corrected username
+          tags: maramohamed22/advanced-risk-engine:latest
 
-      # Step 5: Set up Kubectl
-      - name: Set up Kubectl
-        uses: azure/setup-kubectl@v3
-        with:
-          version: "latest"
-
-      # Step 6: Configure Kubernetes context
-      - name: Configure Kubernetes
-        run: |
-          echo "${{ secrets.KUBE_CONFIG }}" > kubeconfig.yaml
-          export KUBECONFIG=kubeconfig.yaml
-
-      # Step 7: Deploy to Kubernetes
+      # Step 5: Deploy to Kubernetes (optional)
       - name: Deploy to Kubernetes
         run: |
+          echo "Deploying to Kubernetes..."
           kubectl apply -f deployment.yaml
           kubectl apply -f service.yaml
         env:
-          KUBECONFIG: kubeconfig.yaml
+          KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
